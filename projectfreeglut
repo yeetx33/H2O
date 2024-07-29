@@ -1,0 +1,95 @@
+#include <GL/freeglut.h> 
+
+int windowWidth = 700;
+int windowHeight = 700;
+float RotAngle = 0.0;
+GLfloat lightPosition[] = { 0.0f, 10.0f, -10.0f, 0.0f };
+GLfloat lightDiffuse[] = {1.0f, 1.0f, 1.0f, 10.0f };
+GLfloat lightAmbient[] = { 0.2f, .3f, 0.15f, 0.1f };
+
+void draw()
+{
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+glClearColor(212.0f / 255.0f, 241.0f / 255.0f, 249.0f /255.0f , 0.0f/255.0f);
+glEnable(GL_DEPTH_TEST);
+glEnable(GL_COLOR_MATERIAL); 
+glEnable(GL_LIGHTING); 
+glEnable(GL_LIGHT0); 
+glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
+glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
+
+
+
+RotAngle = RotAngle + 0.000001f;
+if (RotAngle <= 0.000002)
+{  
+RotAngle = RotAngle + 00000000.1;
+}
+	
+glRotatef(RotAngle, 0.0, 1.0, 0.0);
+// o sphere
+	glColor3f(1.0, 0.0, 0.0);
+	glutSolidSphere(0.2, 20, 20);
+	//o letter
+	glColor3f(0.0, 0.0, 0.0);  
+	glLineWidth(4); 
+	glPushMatrix();
+	glTranslatef(-0.05, 0.0, -0.2);  
+	glScalef(0.001, 0.001, 0.001);  
+	glutStrokeCharacter(GLUT_STROKE_ROMAN, 'O');
+	glPopMatrix();
+
+	glPushMatrix();
+	//h sphere
+	glColor3f(1.0, 1.0, 1.0);  
+	glTranslatef(0.2, -0.09, 0.0);
+	glutSolidSphere(0.16, 20, 20);  
+	//h letter
+	glColor3f(0.0, 0.0, 0.0);  
+	glLineWidth(4);
+	glPushMatrix();
+	glTranslatef(-0.05, 0.0, -0.2); 
+	glScalef(0.001, 0.001, 0.001);  
+	glutStrokeCharacter(GLUT_STROKE_ROMAN, 'H');
+	glPopMatrix();
+	glPopMatrix();
+
+	glPushMatrix();
+	//h sphere
+	glColor3f(1.0, 1.0, 1.0); 
+	glTranslatef(-0.2, -0.09, 0.0);  
+	glutSolidSphere(0.16, 20, 20);
+	//h letter
+	glColor3f(0.0, 0.0, 0.0);  
+	glLineWidth(4); 
+	glPushMatrix();
+	glTranslatef(-0.05, 0.0, -0.2);  
+	glScalef(0.001, 0.001, 0.001); 
+	glutStrokeCharacter(GLUT_STROKE_ROMAN, 'H');
+	glPopMatrix();
+	glPopMatrix();
+
+	glDisable(GL_LIGHT0);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_COLOR_MATERIAL);
+	glDisable(GL_LIGHTING);
+
+glutSwapBuffers();
+glutPostRedisplay();
+}
+
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+glutInitWindowPosition(100, 100);
+glutInitWindowSize(windowWidth, windowHeight);
+glutCreateWindow(" H 2 O     3 D     M O L E C U L E      S T R U C T U R E ");
+
+	glEnable(GL_DEPTH_TEST);
+	glutDisplayFunc(draw);
+	glutMainLoop();
+	return -1;
+}
